@@ -1,0 +1,77 @@
+<!-- web/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Container Vision OCR</title>
+
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    .col { display: inline-block; vertical-align: top; margin-right: 24px; }
+    .btn { padding: 8px 12px; background:#007bff; color:white; border:none; cursor:pointer; }
+    pre { background:#f3f3f3; padding:10px; }
+    #map { height: 400px; width: 90%; margin-top: 20px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Container Vision OCR (Experimental)</h1>
+
+  <div class="col">
+    <h3>Upload Image</h3>
+    <input id="fileInput" type="file" accept="image/*"><br><br>
+
+    <label>Checkpoint:</label>
+    <select id="checkpoint">
+      <script>
+        // populate 1..10
+        for (let i = 1; i <= 10; i++) {
+          document.write(`<option value="${i}">Checkpoint ${i}</option>`);
+        }
+      </script>
+    </select><br><br>
+
+    <label>Latitude:</label>
+    <input id="lat" type="number" step="0.00001" value="19.0330"><br><br>
+
+    <label>Longitude:</label>
+    <input id="lon" type="number" step="0.00001" value="73.1008"><br><br>
+
+    <button class="btn" onclick="upload()">Submit</button>
+  </div>
+
+  <div class="col">
+    <h3>Result</h3>
+    <pre id="result">No request yet</pre>
+  </div>
+
+  <hr style="clear:both; margin-top:30px;">
+
+  <h3>View entries</h3>
+  <div>
+    <!-- quick buttons for 1..10 -->
+    <script>
+      for (let i = 1; i <= 10; i++) {
+        document.write(`<button class="btn" onclick="loadEntries(${i})">Checkpoint ${i}</button> `);
+      }
+    </script>
+  </div>
+  <pre id="entries"></pre>
+
+  <hr>
+
+  <h3>Track container on map</h3>
+  <input id="route_input" placeholder="Enter container ID">
+  <button class="btn" onclick="loadRoute()">Show Route</button>
+
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Main logic -->
+  <script src="script.js"></script>
+</body>
+</html>
